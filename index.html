@@ -7,11 +7,18 @@
     <style>
         @page {
             size: letter;
-            margin: 0.4in;
+            margin: 0.5in 0.4in;
         }
         @media print {
             .download-buttons {
                 display: none !important;
+            }
+            body {
+                margin: 0;
+                padding: 0;
+            }
+            .header {
+                margin-bottom: 0;
             }
         }
         .download-buttons {
@@ -50,11 +57,14 @@
             font-size: 10.5pt;
             line-height: 1.35;
             color: #000000;
+            margin: 0;
+            padding: 0;
         }
         .container {
             display: table;
             width: 100%;
             border-collapse: collapse;
+            margin: 0;
         }
         .row {
             display: table-row;
@@ -437,43 +447,49 @@
 
     <script>
         function downloadPDF() {
-            // Cache les boutons avant l'impression
-            document.querySelector('.download-buttons').style.display = 'none';
-            
-            // Ouvre la boîte de dialogue d'impression
             window.print();
-            
-            // Réaffiche les boutons après
-            setTimeout(() => {
-                document.querySelector('.download-buttons').style.display = 'flex';
-            }, 100);
         }
 
         function downloadWord() {
-            // Clone le document sans les boutons
-            const clone = document.documentElement.cloneNode(true);
-            const buttons = clone.querySelector('.download-buttons');
-            if (buttons) buttons.remove();
+            // Récupère tout le HTML de la page
+            const pageHTML = `
+<!DOCTYPE html>
+<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+<head>
+    <meta charset='utf-8'>
+    <title>CV - Imen Berrezouga</title>
+    <!--[if gte mso 9]>
+    <xml>
+        <w:WordDocument>
+            <w:View>Print</w:View>
+            <w:Zoom>100</w:Zoom>
+        </w:WordDocument>
+    </xml>
+    <![endif]-->
+    <style>
+        ${document.querySelector('style').innerHTML}
+        .download-buttons { display: none !important; }
+    </style>
+</head>
+<body>
+    ${document.body.innerHTML.replace(/<div class="download-buttons">[\s\S]*?<\/div>/, '')}
+</body>
+</html>`;
             
-            // Crée le contenu HTML
-            const htmlContent = clone.outerHTML;
-            
-            // Crée un blob avec le contenu HTML
-            const blob = new Blob(['\ufeff', htmlContent], {
-                type: 'application/msword'
+            // Crée un blob pour Word
+            const blob = new Blob(['\ufeff', pageHTML], {
+                type: 'application/msword;charset=utf-8'
             });
             
-            // Crée un lien de téléchargement
+            // Crée et déclenche le téléchargement
             const url = URL.createObjectURL(blob);
             const link = document.createElement('a');
             link.href = url;
             link.download = 'CV_Imen_Berrezouga.doc';
-            
-            // Déclenche le téléchargement
-            document.body.appendChild(link);
             link.click();
-            document.body.removeChild(link);
-            URL.revokeObjectURL(url);
+            
+            // Nettoie
+            setTimeout(() => URL.revokeObjectURL(url), 100);
         }
     </script>
 </body>
