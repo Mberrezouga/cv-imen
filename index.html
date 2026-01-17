@@ -7,45 +7,16 @@
     <style>
         @page {
             size: letter;
-            margin: 0.5in 0.4in;
+            margin: 0.25in;
         }
         @media print {
-            .download-buttons {
-                display: none !important;
-            }
             body {
-                margin: 0;
-                padding: 0;
+                margin: 0 !important;
+                padding: 0 !important;
             }
-            .header {
-                margin-bottom: 0;
+            .job {
+                page-break-inside: avoid;
             }
-        }
-        .download-buttons {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-            display: flex;
-            gap: 10px;
-        }
-        .download-btn {
-            background: linear-gradient(135deg, #1a1a2e 0%, #2d2d44 100%);
-            color: white;
-            border: 2px solid #d4af37;
-            padding: 12px 24px;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        .download-btn:hover {
-            background: linear-gradient(135deg, #d4af37 0%, #fbbf24 100%);
-            color: #1a1a2e;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
         }
         * {
             margin: 0;
@@ -54,443 +25,382 @@
         }
         body {
             font-family: Calibri, Arial, sans-serif;
-            font-size: 10.5pt;
-            line-height: 1.35;
+            font-size: 8.5pt;
+            line-height: 1.25;
             color: #000000;
-            margin: 0;
-            padding: 0;
+            background: white;
         }
         .container {
-            display: table;
-            width: 100%;
-            border-collapse: collapse;
-            margin: 0;
-        }
-        .row {
-            display: table-row;
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            gap: 0;
+            max-width: 8.5in;
+            margin: 0 auto;
         }
         .header {
+            grid-column: 1 / -1;
             background-color: #1a1a2e;
             color: white;
-            padding: 25px 30px;
+            padding: 16px 22px;
             text-align: center;
-            margin-bottom: 15px;
         }
         .header h1 {
-            font-size: 28pt;
-            margin-bottom: 8px;
+            font-size: 24pt;
+            margin-bottom: 6px;
             font-weight: bold;
+            letter-spacing: 1px;
         }
         .header .contact {
-            font-size: 10.5pt;
-            margin-top: 12px;
+            font-size: 9pt;
+            margin-top: 8px;
         }
         .sidebar {
-            display: table-cell;
-            width: 32%;
             background-color: #1a1a2e;
             color: white;
-            padding: 20px 18px;
-            vertical-align: top;
+            padding: 14px 14px;
             border-right: 4px solid #d4af37;
         }
         .main-content {
-            display: table-cell;
-            width: 68%;
-            padding: 20px 22px;
-            vertical-align: top;
+            padding: 14px 18px;
+            background: white;
         }
         .section-title {
-            font-size: 13pt;
+            font-size: 10.5pt;
             font-weight: bold;
             color: #fbbf24;
-            margin-top: 16px;
-            margin-bottom: 8px;
-            padding-bottom: 4px;
-            border-bottom: 3px solid #d4af37;
+            margin-top: 11px;
+            margin-bottom: 6px;
+            padding-bottom: 2px;
+            border-bottom: 2px solid #d4af37;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
         }
         .section-title:first-child {
             margin-top: 0;
         }
         .main-section-title {
-            font-size: 16pt;
+            font-size: 13pt;
             font-weight: bold;
             color: #1a1a2e;
-            margin-bottom: 12px;
-            padding-bottom: 4px;
-            border-bottom: 4px solid #d4af37;
+            margin-bottom: 8px;
+            padding-bottom: 2px;
+            border-bottom: 3px solid #d4af37;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
         }
         .profile-text {
-            font-size: 9.5pt;
+            font-size: 8pt;
             color: #e2e8f0;
-            margin-bottom: 12px;
-            line-height: 1.4;
+            margin-bottom: 8px;
+            line-height: 1.3;
         }
         .skill-item {
-            margin-bottom: 10px;
+            margin-bottom: 7px;
         }
         .skill-name {
-            font-size: 9.5pt;
+            font-size: 8pt;
             font-weight: bold;
-            margin-bottom: 3px;
+            margin-bottom: 2px;
         }
         .skill-bar {
             background-color: rgba(255,255,255,0.2);
-            height: 6px;
-            border-radius: 3px;
-            margin-top: 2px;
+            height: 4px;
+            border-radius: 2px;
+            margin-top: 1px;
         }
         .skill-fill {
             background-color: #fbbf24;
-            height: 6px;
-            border-radius: 3px;
+            height: 4px;
+            border-radius: 2px;
         }
         .edu-item, .cert-item {
-            margin-bottom: 12px;
-            font-size: 9.5pt;
-            line-height: 1.3;
+            margin-bottom: 8px;
+            font-size: 8pt;
+            line-height: 1.2;
         }
         .edu-item strong, .cert-item strong {
             color: #fbbf24;
-            font-size: 10pt;
+            font-size: 8.5pt;
             display: block;
-            margin-bottom: 2px;
+            margin-bottom: 1px;
         }
         .edu-year {
             color: #cbd5e1;
-            font-size: 9pt;
+            font-size: 7.5pt;
         }
         .lang-item {
-            font-size: 9.5pt;
-            margin-bottom: 6px;
+            font-size: 8pt;
+            margin-bottom: 4px;
         }
         .job {
-            margin-bottom: 16px;
-            padding-bottom: 12px;
-            border-bottom: 2px solid #e5e7eb;
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 1.5px solid #e5e7eb;
             page-break-inside: avoid;
         }
         .job:last-child {
             border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
         }
         .job-header {
-            margin-bottom: 8px;
+            margin-bottom: 5px;
             overflow: hidden;
         }
         .company {
-            font-size: 12pt;
+            font-size: 10.5pt;
             font-weight: bold;
             color: #1a1a2e;
             float: left;
         }
         .period {
-            font-size: 9.5pt;
+            font-size: 8pt;
             color: #64748b;
             font-style: italic;
             float: right;
             font-weight: 600;
         }
         .role-title {
-            font-size: 11pt;
+            font-size: 9.5pt;
             font-weight: bold;
             color: #1e293b;
-            margin-top: 6px;
+            margin-top: 4px;
             margin-bottom: 2px;
             clear: both;
         }
         .role-period {
-            font-size: 9.5pt;
+            font-size: 8pt;
             color: #64748b;
             font-style: italic;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
         }
         .achievements {
-            margin-left: 18px;
-            margin-bottom: 8px;
+            margin-left: 14px;
+            margin-bottom: 5px;
         }
         .achievements li {
-            margin-bottom: 4px;
-            font-size: 9.5pt;
-            line-height: 1.35;
+            margin-bottom: 2px;
+            font-size: 8pt;
+            line-height: 1.25;
         }
         .tags {
-            margin-top: 6px;
+            margin-top: 4px;
         }
         .tag {
             display: inline-block;
             background-color: #fef3c7;
             color: #92400e;
-            padding: 3px 8px;
-            border-radius: 8px;
-            font-size: 8.5pt;
+            padding: 2px 6px;
+            border-radius: 6px;
+            font-size: 7pt;
             font-weight: bold;
-            margin-right: 5px;
-            margin-bottom: 3px;
+            margin-right: 3px;
+            margin-bottom: 2px;
             border: 1px solid #fbbf24;
         }
-        .contact-item {
-            margin-bottom: 6px;
-            font-size: 9.5pt;
-        }
     </style>
 </head>
 <body>
-    <div class="download-buttons">
-        <button class="download-btn" onclick="downloadPDF()">📄 Télécharger PDF</button>
-        <button class="download-btn" onclick="downloadWord()">📝 Télécharger Word</button>
-    </div>
-
-    <div class="header">
-        <h1>Imen Berrezouga</h1>
-        <div class="contact">
-            📍 Montréal, QC &nbsp;&nbsp;|&nbsp;&nbsp; ✉️ imen.berrezouga@yahoo.ca &nbsp;&nbsp;|&nbsp;&nbsp; 📱 514-443-8060
-        </div>
-    </div>
-
     <div class="container">
-        <div class="row">
-            <div class="sidebar">
-                <div class="section-title">Profil</div>
-                <div class="profile-text">
-                    Leader stratégique avec 15+ ans d'expertise en évaluations indépendantes, audits de conformité réglementaire et gouvernance des données. Spécialiste reconnue en gestion de programmes d'audit, conformité BSIF (ligne directrice E13) et cadre réglementaire Bâle. Expertise en leadership d'équipe, développement de talents et gestion de projets stratégiques.
-                </div>
+        <div class="header">
+            <h1>IMEN BERREZOUGA</h1>
+            <div class="contact">
+                📧 imen.berrezouga@yahoo.ca &nbsp;&nbsp;|&nbsp;&nbsp; 📱 514-443-8060 &nbsp;&nbsp;|&nbsp;&nbsp; 📍 Montréal, QC
+            </div>
+        </div>
 
-                <div class="section-title">Compétences</div>
-                <div class="skill-item">
-                    <div class="skill-name">Évaluations Indépendantes</div>
-                    <div class="skill-bar"><div class="skill-fill" style="width: 95%"></div></div>
-                </div>
-                <div class="skill-item">
-                    <div class="skill-name">Conformité BSIF/Bâle</div>
-                    <div class="skill-bar"><div class="skill-fill" style="width: 95%"></div></div>
-                </div>
-                <div class="skill-item">
-                    <div class="skill-name">Leadership & Gestion</div>
-                    <div class="skill-bar"><div class="skill-fill" style="width: 100%"></div></div>
-                </div>
-                <div class="skill-item">
-                    <div class="skill-name">Gestion des Risques</div>
-                    <div class="skill-bar"><div class="skill-fill" style="width: 92%"></div></div>
-                </div>
-                <div class="skill-item">
-                    <div class="skill-name">Gouvernance Données</div>
-                    <div class="skill-bar"><div class="skill-fill" style="width: 90%"></div></div>
-                </div>
-
-                <div class="section-title">Formation</div>
-                <div class="edu-item">
-                    <strong>Microprogramme 2e cycle</strong>
-                    Analyse Quantitative Marchés<br>
-                    <span class="edu-year">U. Sherbrooke, 2012</span>
-                </div>
-                <div class="edu-item">
-                    <strong>Maîtrise Pro.</strong>
-                    Banques & Marchés Financiers<br>
-                    <span class="edu-year">2011</span>
-                </div>
-                <div class="edu-item">
-                    <strong>Maîtrise Pro.</strong>
-                    Risques & Assurance<br>
-                    <span class="edu-year">2007</span>
-                </div>
-
-                <div class="section-title">Certifications</div>
-                <div class="cert-item">
-                    <strong>PSPO I</strong>
-                    <span class="edu-year">Scrum.org, 2021</span>
-                </div>
-                <div class="cert-item">
-                    <strong>Financial Services Audit</strong>
-                    <span class="edu-year">IIA, 2020</span>
-                </div>
-
-                <div class="section-title">Langues</div>
-                <div class="lang-item">• Français</div>
-                <div class="lang-item">• Anglais</div>
+        <div class="sidebar">
+            <div class="section-title">Profil</div>
+            <div class="profile-text">
+                Leader stratégique avec 15+ ans d'expertise en évaluations indépendantes, audits de conformité réglementaire et gouvernance des données. Spécialiste reconnue en gestion de programmes d'audit, conformité BSIF (ligne directrice E13) et cadre réglementaire Bâle. Expertise en leadership d'équipe, développement de talents et gestion de projets stratégiques.
             </div>
 
-            <div class="main-content">
-                <div class="main-section-title">Expérience Professionnelle</div>
+            <div class="section-title">Compétences</div>
+            <div class="skill-item">
+                <div class="skill-name">Évaluations Indépendantes</div>
+                <div class="skill-bar"><div class="skill-fill" style="width: 95%"></div></div>
+            </div>
+            <div class="skill-item">
+                <div class="skill-name">Conformité BSIF/Bâle</div>
+                <div class="skill-bar"><div class="skill-fill" style="width: 95%"></div></div>
+            </div>
+            <div class="skill-item">
+                <div class="skill-name">Leadership & Gestion</div>
+                <div class="skill-bar"><div class="skill-fill" style="width: 100%"></div></div>
+            </div>
+            <div class="skill-item">
+                <div class="skill-name">Gestion des Risques</div>
+                <div class="skill-bar"><div class="skill-fill" style="width: 92%"></div></div>
+            </div>
+            <div class="skill-item">
+                <div class="skill-name">Gouvernance Données</div>
+                <div class="skill-bar"><div class="skill-fill" style="width: 90%"></div></div>
+            </div>
 
-                <div class="job">
-                    <div class="job-header">
-                        <span class="company">Banque Nationale du Canada</span>
-                        <span class="period">2018 - Présent</span>
-                    </div>
+            <div class="section-title">Formation</div>
+            <div class="edu-item">
+                <strong>Microprogramme 2e cycle</strong>
+                Analyse Quantitative Marchés<br>
+                <span class="edu-year">U. Sherbrooke, 2012</span>
+            </div>
+            <div class="edu-item">
+                <strong>Maîtrise Pro.</strong>
+                Banques & Marchés Financiers<br>
+                <span class="edu-year">2011</span>
+            </div>
+            <div class="edu-item">
+                <strong>Maîtrise Pro.</strong>
+                Risques & Assurance<br>
+                <span class="edu-year">2007</span>
+            </div>
 
-                    <div class="role-title">Partenaire d'Affaires de Données | Stratégie</div>
-                    <div class="role-period">Avril 2023 - Présent</div>
-                    <ul class="achievements">
-                        <li>Leadership stratégique des domaines corporatifs (Marketing, Acceptation du crédit, World Trade) dans le déploiement de programmes de gouvernance alignés aux exigences réglementaires</li>
-                        <li>Identification proactive des risques et développement de stratégies d'atténuation avec les parties prenantes</li>
-                        <li>Formation et développement des talents sur les principes de gouvernance et outils collaboratifs</li>
-                        <li>Gestion d'équipes multidisciplinaires avec satisfaction élevée des partenaires d'affaires</li>
-                    </ul>
-                    <div class="tags">
-                        <span class="tag">Leadership</span>
-                        <span class="tag">Gouvernance</span>
-                        <span class="tag">Gestion d'Équipe</span>
-                    </div>
+            <div class="section-title">Certifications</div>
+            <div class="cert-item">
+                <strong>PSPO I</strong>
+                <span class="edu-year">Scrum.org, 2021</span>
+            </div>
+            <div class="cert-item">
+                <strong>Financial Services Audit</strong>
+                <span class="edu-year">IIA, 2020</span>
+            </div>
 
-                    <div class="role-title">Experte en Gestion de Données</div>
-                    <div class="role-period">Février 2022 - Mars 2023</div>
-                    <ul class="achievements">
-                        <li>Support stratégique au domaine financement en gestion des données</li>
-                        <li>Formation des intendants sur les outils de gouvernance et processus de contrôle</li>
-                        <li>Mise en place de processus d'approbation et contrôles robustes</li>
-                    </ul>
-                    <div class="tags">
-                        <span class="tag">Qualité Données</span>
-                        <span class="tag">Formation</span>
-                    </div>
+            <div class="section-title">Langues</div>
+            <div class="lang-item">• Français</div>
+            <div class="lang-item">• Anglais</div>
+        </div>
 
-                    <div class="role-title">Auditrice Principale</div>
-                    <div class="role-period">Février 2020 - Février 2022</div>
-                    <ul class="achievements">
-                        <li>Product Owner et leader de mandats d'évaluations indépendantes en mode agile avec présentation aux comités de direction</li>
-                        <li>Audits de conformité des travaux de risque de crédit (1ère et 2ème lignes) selon directives BSIF</li>
-                        <li>Évaluation indépendante de la modélisation, backtesting et agrégation des données (normes Bâle)</li>
-                        <li>Identification des risques et recommandations pragmatiques pour améliorer l'efficacité</li>
-                    </ul>
-                    <div class="tags">
-                        <span class="tag">Évaluations Indépendantes</span>
-                        <span class="tag">BSIF</span>
-                        <span class="tag">Agile</span>
-                    </div>
+        <div class="main-content">
+            <div class="main-section-title">Expérience Professionnelle</div>
 
-                    <div class="role-title">Auditrice Sénior</div>
-                    <div class="role-period">Avril 2018 - Février 2020</div>
-                    <ul class="achievements">
-                        <li>Évaluations indépendantes des travaux de risque de crédit conformément aux directives BSIF</li>
-                        <li>Audit de conformité de la modélisation et agrégation des données (Bâle)</li>
-                        <li>Formation de l'équipe sur les outils collaboratifs et méthodologies d'audit</li>
-                    </ul>
-                    <div class="tags">
-                        <span class="tag">Audit</span>
-                        <span class="tag">BSIF</span>
-                        <span class="tag">Conformité</span>
-                    </div>
+            <div class="job">
+                <div class="job-header">
+                    <span class="company">Banque Nationale du Canada</span>
+                    <span class="period">2018 - Présent</span>
                 </div>
 
-                <div class="job">
-                    <div class="job-header">
-                        <span class="company">Mouvement Desjardins</span>
-                        <span class="period">2014 - 2018</span>
-                    </div>
-
-                    <div class="role-title">Conseillère, Quantification des Portefeuilles</div>
-                    <div class="role-period">Avril 2016 - Mars 2018</div>
-                    <ul class="achievements">
-                        <li>Évaluation des risques opérationnels et recommandations stratégiques</li>
-                        <li>Production de l'autoévaluation pour l'agrément Bâle sur le risque opérationnel</li>
-                        <li>Documentation des meilleures pratiques et optimisation des processus</li>
-                    </ul>
-                    <div class="tags">
-                        <span class="tag">Risque Opérationnel</span>
-                        <span class="tag">Bâle</span>
-                    </div>
-
-                    <div class="role-title">Conseillère en Développement</div>
-                    <div class="role-period">Novembre 2014 - Avril 2016</div>
-                    <ul class="achievements">
-                        <li>Mise en place des principes RDARR et Plan de Retour à la Viabilité</li>
-                        <li>Participation à la Gestion de la Performance par Processus (GPP)</li>
-                        <li>Documentation des processus de reddition conformes</li>
-                    </ul>
-                    <div class="tags">
-                        <span class="tag">RDARR</span>
-                        <span class="tag">PRV</span>
-                    </div>
+                <div class="role-title">Partenaire d'Affaires de Données | Stratégie</div>
+                <div class="role-period">Avril 2023 - Présent</div>
+                <ul class="achievements">
+                    <li>Leadership stratégique des domaines corporatifs (Marketing, Acceptation du crédit, World Trade) dans le déploiement de programmes de gouvernance alignés aux exigences réglementaires</li>
+                    <li>Identification proactive des risques et développement de stratégies d'atténuation avec les parties prenantes clés</li>
+                    <li>Formation et développement des talents sur les principes de gouvernance et outils collaboratifs</li>
+                    <li>Gestion d'équipes multidisciplinaires avec satisfaction élevée des partenaires d'affaires</li>
+                </ul>
+                <div class="tags">
+                    <span class="tag">Leadership Stratégique</span>
+                    <span class="tag">Gouvernance</span>
+                    <span class="tag">Gestion d'Équipe</span>
                 </div>
 
-                <div class="job">
-                    <div class="job-header">
-                        <span class="company">Banque Laurentienne</span>
-                        <span class="period">2012 - 2014</span>
-                    </div>
-
-                    <div class="role-title">Analyste Principale, Notations Internes</div>
-                    <div class="role-period">Mai 2012 - Avril 2014</div>
-                    <ul class="achievements">
-                        <li>Modélisation des paramètres de risques (PD, LGD, EAD) avec SAS pour clientèle détail et commerciale</li>
-                        <li>Documentation exhaustive de 12 modèles en méthode avancée facilitant la conformité Bâle</li>
-                        <li>Amélioration de la qualité de crédit et réduction des provisions</li>
-                    </ul>
-                    <div class="tags">
-                        <span class="tag">SAS</span>
-                        <span class="tag">IRBA</span>
-                        <span class="tag">Modélisation</span>
-                    </div>
+                <div class="role-title">Experte en Gestion de Données</div>
+                <div class="role-period">Février 2022 - Mars 2023</div>
+                <ul class="achievements">
+                    <li>Support stratégique au domaine financement en gestion des données</li>
+                    <li>Formation des intendants sur les outils de gouvernance et processus de contrôle</li>
+                    <li>Mise en place de processus d'approbation et contrôles robustes</li>
+                </ul>
+                <div class="tags">
+                    <span class="tag">Qualité Données</span>
+                    <span class="tag">Formation</span>
                 </div>
 
-                <div class="job">
-                    <div class="job-header">
-                        <span class="company">Banque Tuniso-Koweitienne</span>
-                        <span class="period">2009 - 2011</span>
-                    </div>
+                <div class="role-title">Auditrice Principale</div>
+                <div class="role-period">Février 2020 - Février 2022</div>
+                <ul class="achievements">
+                    <li>Product Owner et leader de mandats d'évaluations indépendantes en mode agile avec présentation aux comités de direction</li>
+                    <li>Audits de conformité des travaux de risque de crédit (1ère et 2ème lignes) selon directives BSIF</li>
+                    <li>Évaluation indépendante de la modélisation, backtesting et agrégation des données (normes Bâle)</li>
+                    <li>Identification des risques et recommandations pragmatiques pour améliorer l'efficacité</li>
+                </ul>
+                <div class="tags">
+                    <span class="tag">Évaluations Indépendantes</span>
+                    <span class="tag">BSIF</span>
+                    <span class="tag">Agile</span>
+                </div>
 
-                    <div class="role-title">Analyste du Risque de Crédit</div>
-                    <div class="role-period">Décembre 2009 - Septembre 2011</div>
-                    <ul class="achievements">
-                        <li>Analyse de solvabilité et garanties des dossiers de prêt</li>
-                        <li>Modélisation du système de notation des clients</li>
-                        <li>Diminution du taux d'anomalies de 2% à 1% par an</li>
-                    </ul>
-                    <div class="tags">
-                        <span class="tag">Analyse Crédit</span>
-                        <span class="tag">Notation</span>
-                    </div>
+                <div class="role-title">Auditrice Sénior</div>
+                <div class="role-period">Avril 2018 - Février 2020</div>
+                <ul class="achievements">
+                    <li>Évaluations indépendantes des travaux de risque de crédit conformément aux directives BSIF</li>
+                    <li>Audit de conformité de la modélisation et agrégation des données (Bâle)</li>
+                    <li>Formation de l'équipe sur les outils collaboratifs et méthodologies d'audit</li>
+                </ul>
+                <div class="tags">
+                    <span class="tag">Audit</span>
+                    <span class="tag">BSIF</span>
+                    <span class="tag">Conformité</span>
+                </div>
+            </div>
+
+            <div class="job">
+                <div class="job-header">
+                    <span class="company">Mouvement Desjardins</span>
+                    <span class="period">2014 - 2018</span>
+                </div>
+
+                <div class="role-title">Conseillère, Quantification des Portefeuilles</div>
+                <div class="role-period">Avril 2016 - Mars 2018</div>
+                <ul class="achievements">
+                    <li>Évaluation des risques opérationnels et recommandations stratégiques</li>
+                    <li>Production de l'autoévaluation pour l'agrément Bâle sur le risque opérationnel</li>
+                    <li>Documentation des meilleures pratiques et optimisation des processus</li>
+                </ul>
+                <div class="tags">
+                    <span class="tag">Risque Opérationnel</span>
+                    <span class="tag">Bâle</span>
+                </div>
+
+                <div class="role-title">Conseillère en Développement</div>
+                <div class="role-period">Novembre 2014 - Avril 2016</div>
+                <ul class="achievements">
+                    <li>Mise en place des principes RDARR et Plan de Retour à la Viabilité</li>
+                    <li>Participation à la Gestion de la Performance par Processus (GPP)</li>
+                </ul>
+                <div class="tags">
+                    <span class="tag">RDARR</span>
+                    <span class="tag">PRV</span>
+                </div>
+            </div>
+
+            <div class="job">
+                <div class="job-header">
+                    <span class="company">Banque Laurentienne</span>
+                    <span class="period">2012 - 2014</span>
+                </div>
+
+                <div class="role-title">Analyste Principale, Notations Internes</div>
+                <div class="role-period">Mai 2012 - Avril 2014</div>
+                <ul class="achievements">
+                    <li>Modélisation des paramètres de risques (PD, LGD, EAD) avec SAS pour clientèle détail et commerciale</li>
+                    <li>Documentation exhaustive de 12 modèles en méthode avancée facilitant la conformité Bâle</li>
+                    <li>Amélioration de la qualité de crédit et réduction des provisions</li>
+                </ul>
+                <div class="tags">
+                    <span class="tag">SAS</span>
+                    <span class="tag">IRBA</span>
+                    <span class="tag">Modélisation</span>
+                </div>
+            </div>
+
+            <div class="job">
+                <div class="job-header">
+                    <span class="company">Banque Tuniso-Koweitienne</span>
+                    <span class="period">2009 - 2011</span>
+                </div>
+
+                <div class="role-title">Analyste du Risque de Crédit</div>
+                <div class="role-period">Décembre 2009 - Septembre 2011</div>
+                <ul class="achievements">
+                    <li>Analyse de solvabilité et garanties des dossiers de prêt</li>
+                    <li>Modélisation du système de notation des clients</li>
+                    <li>Diminution du taux d'anomalies de 2% à 1% par an</li>
+                </ul>
+                <div class="tags">
+                    <span class="tag">Analyse Crédit</span>
+                    <span class="tag">Notation</span>
                 </div>
             </div>
         </div>
     </div>
-
-    <script>
-        function downloadPDF() {
-            window.print();
-        }
-
-        function downloadWord() {
-            // Récupère tout le HTML de la page
-            const pageHTML = `
-<!DOCTYPE html>
-<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
-<head>
-    <meta charset='utf-8'>
-    <title>CV - Imen Berrezouga</title>
-    <!--[if gte mso 9]>
-    <xml>
-        <w:WordDocument>
-            <w:View>Print</w:View>
-            <w:Zoom>100</w:Zoom>
-        </w:WordDocument>
-    </xml>
-    <![endif]-->
-    <style>
-        ${document.querySelector('style').innerHTML}
-        .download-buttons { display: none !important; }
-    </style>
-</head>
-<body>
-    ${document.body.innerHTML.replace(/<div class="download-buttons">[\s\S]*?<\/div>/, '')}
-</body>
-</html>`;
-            
-            // Crée un blob pour Word
-            const blob = new Blob(['\ufeff', pageHTML], {
-                type: 'application/msword;charset=utf-8'
-            });
-            
-            // Crée et déclenche le téléchargement
-            const url = URL.createObjectURL(blob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = 'CV_Imen_Berrezouga.doc';
-            link.click();
-            
-            // Nettoie
-            setTimeout(() => URL.revokeObjectURL(url), 100);
-        }
-    </script>
 </body>
 </html>
